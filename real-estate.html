@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Photography - Sequoia Drone Services</title>
+    <!-- Replace CDN Tailwind with local installation in production -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style>
+        /* Three.js Canvas */
+        #three-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 4;
+        }
+        
+        /* Hero Section Styling */
+        .hero-section {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background-image: url('assets/images/aerial-estate.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+        }
+
+        /* Parallax and Animations */
+        .parallax {
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .hover-effect:hover {
+            transform: scale(1.05);
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Box Shadows for Cards */
+        .card {
+            transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            transform: translateY(-10px);
+        }
+
+        /* Updated styles for better visibility */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(74, 222, 128, 0.5),
+                         0 0 20px rgba(74, 222, 128, 0.3),
+                         0 0 30px rgba(74, 222, 128, 0.1);
+        }
+
+        /* Ensure proper z-index stacking */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        #three-container {
+            z-index: 2;
+        }
+
+        .relative.container {
+            z-index: 3;
+        }
+
+        /* Add padding for header */
+        .pt-20 {
+            padding-top: 5rem;
+        }
+
+        /* Improved floating animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(-50%); }
+            50% { transform: translateY(-20px) translateX(-50%); }
+        }
+
+        .floating-element {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Background image animation */
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('assets/images/aerial-estate.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 1;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .bg-image.fade-out {
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .bg-image.fade-in {
+            animation: fadeIn 2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Hero Section with Parallax -->
+    <section class="relative min-h-screen flex items-center overflow-hidden">
+        <div class="bg-image" id="bgImage"></div>
+        <div class="absolute inset-0 z-0">
+            <!-- Update image path to your actual image location -->
+            <img src="assets/images/arialview.png" 
+                 alt="Aerial Estate" 
+                 class="w-full h-full object-cover image-parallax"
+                 data-speed="0.5">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900"></div>
+        </div>
+        
+        <!-- 3D Elements Container -->
+        <div id="three-container" class="absolute inset-0 z-1 pointer-events-none"></div>
+        
+        <!-- Content -->
+        <div class="relative container mx-auto px-4 z-10 mt-16">
+            <div class="max-w-3xl mx-auto text-center space-y-8">
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight neon-text" 
+                    data-aos="fade-up">
+                    Real Estate
+                    <span class="block text-green-400">Photography</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300" 
+                   data-aos="fade-up" 
+                   data-aos-delay="200">
+                    Elevate Your Property Marketing with Cutting-Edge Drone Technology
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4" 
+                     data-aos="fade-up" 
+                     data-aos-delay="400">
+                    <a href="#services" 
+                       class="glass-card px-8 py-3 hover-glow transition-all duration-300 hover:bg-green-500/10">
+                        Explore Services
+                    </a>
+                    <a href="#contact" 
+                       class="bg-green-500 px-8 py-3 rounded-lg hover:bg-green-600 transition-all duration-300">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 floating-element">
+            <i class="fas fa-chevron-down text-2xl text-green-400"></i>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <!-- 4K Video Section -->
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                <div class="space-y-6" data-aos="fade-right">
+                    <h2 class="text-3xl font-bold">4K Video and Pro-Resolution Real Estate Aerials</h2>
+                    <p class="text-gray-300">Professional aerial video and photography are fantastic investments for your real estate, and statistically properties sell faster and attract more prospective buyers if properly marketed with professional aerial footage.</p>
+                    <p class="text-gray-300">Drones are capable of reaching and capturing every angle of commercial or acreage properties, highlighting the entire layout of the land from a unique and attractive perspective.</p>
+                </div>
+                <div data-aos="fade-left" class="hover-effect">
+                    <img src="assets/images/real-estate-lake.jpg" alt="Lake Property" class="rounded-lg shadow-xl">
+                </div>
+            </div>
+
+            <!-- Benefits Section -->
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1" data-aos="fade-right" class="hover-effect">
+                    <img src="assets/images/luxury-home.jpg" alt="Luxury Home" class="rounded-lg shadow-xl">
+                </div>
+                <div class="space-y-6 order-1 md:order-2" data-aos="fade-left">
+                    <h2 class="text-3xl font-bold">Professional Aerial Photos & Video Provide Valuable Benefits for Sellers:</h2>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="hover-effect transition-transform transform hover:translate-x-2">• Cost-effective compared to traditional aerial imaging</li>
+                        <li class="hover-effect transition-transform transform hover:translate-x-2">• In competitive markets, aerial footage will make your property stand out, and appeal to a broader market</li>
+                        <li class="hover-effect transition-transform transform hover:translate-x-2">• Our professional videographer/photographer team members can edit & enhance your imagery to make your property look its best - no matter the time of year</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages Section -->
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center" data-aos="fade-up">The N Drone Advantage:</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="space-y-4 card" data-aos="fade-up" class="hover-effect">
+                    <h3 class="text-xl font-bold text-green-400">Safety is Our Priority</h3>
+                    <p class="text-gray-300">Established SOP's and robust safety systems to keep everyone safe and save both time and money.</p>
+                </div>
+                <div class="space-y-4 card" data-aos="fade-up" data-aos-delay="100" class="hover-effect">
+                    <h3 class="text-xl font-bold text-green-400">IR+</h3>
+                    <p class="text-gray-300">Investing in drone-based thermal imaging provides valuable and actionable data that can translate into huge savings.</p>
+                </div>
+                <div class="space-y-4 card" data-aos="fade-up" data-aos-delay="200" class="hover-effect">
+                    <h3 class="text-xl font-bold text-green-400">Certified and Insured</h3>
+                    <p class="text-gray-300">Our pilots are Transport Canada verified and able to shoot in advanced operating environments. We carry $5 million in specialty drone liability insurance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section with Particles -->
+    <section class="relative py-20 bg-cover bg-center" style="background-image: url('assets/images/drone-forest.jpg');">
+        <div id="particles-js" class="absolute inset-0"></div>
+        <div class="absolute inset-0 bg-black opacity-75"></div>
+        <div class="relative container mx-auto px-6 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-4" data-aos="fade-up">We'd Love To Hear About Your Real Estate</h2>
+            <p class="text-lg sm:text-xl text-gray-300 mb-8" data-aos="fade-up" data-aos-delay="200">Talk to one of our professionals to get the expert advice you need to take full advantage of our years of experience in the drone industry.</p>
+            <a href="#contact" class="inline-block bg-green-500 text-white px-8 py-3 rounded-full hover:bg-green-600 transition-transform duration-300 transform hover:scale-110">Contact</a>
+        </div>
+    </section>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Initialize Particles.js with corrected configuration
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: {
+                        value: 80,
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: '#4ade80'
+                    },
+                    shape: {
+                        type: 'circle'
+                    },
+                    opacity: {
+                        value: 0.5,
+                        random: true,
+                        anim: {
+                            enable: true,
+                            speed: 1,
+                            opacity_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    size: {
+                        value: 3,
+                        random: true
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: '#4ade80',
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: 'none',
+                        random: false,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: 'repulse'
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: 'push'
+                        },
+                        resize: true
+                    }
+                },
+                retina_detect: true
+            });
+        });
+
+        // Initialize Three.js Scene
+        const initThreeJS = () => {
+            const container = document.createElement('div');
+            container.style.position = 'fixed';
+            container.style.top = '0';
+            container.style.left = '0';
+            container.style.width = '100%';
+            container.style.height = '100%';
+            container.style.zIndex = '1';
+            container.style.pointerEvents = 'none';
+            document.body.appendChild(container);
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            // Add ambient light
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+
+            // Add directional light
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(0, 1, 1);
+            scene.add(directionalLight);
+
+            // Create floating geometric shapes
+            const geometry = new THREE.IcosahedronGeometry(1, 0);
+            const material = new THREE.MeshPhongMaterial({
+                color: 0x4ade80,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.3
+            });
+
+            const shapes = [];
+            for(let i = 0; i < 5; i++) {
+                const shape = new THREE.Mesh(geometry, material);
+                shape.position.set(
+                    Math.random() * 10 - 5,
+                    Math.random() * 10 - 5,
+                    Math.random() * -10
+                );
+                shape.rotation.x = Math.random() * Math.PI;
+                shape.rotation.y = Math.random() * Math.PI;
+                shapes.push(shape);
+                scene.add(shape);
+            }
+
+            camera.position.z = 5;
+
+            // Animation loop
+            const animate = () => {
+                requestAnimationFrame(animate);
+
+                shapes.forEach(shape => {
+                    shape.rotation.x += 0.01;
+                    shape.rotation.y += 0.01;
+                });
+
+                renderer.render(scene, camera);
+            };
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            animate();
+        };
+
+        // Initialize everything after DOM content is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initThreeJS();
+            AOS.init({
+                duration: 1000,
+                once: true,
+                mirror: false
+            });
+
+            // Load header and footer
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-placeholder').innerHTML = data;
+                });
+
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                });
+
+            // Background image animation
+            const bgImage = document.getElementById('bgImage');
+            
+            // Initial fade out
+            setTimeout(() => {
+                bgImage.classList.add('fade-out');
+            }, 5000);
+
+            // Periodic fade in and out
+            setInterval(() => {
+                bgImage.classList.remove('fade-out');
+                bgImage.classList.add('fade-in');
+                
+                setTimeout(() => {
+                    bgImage.classList.remove('fade-in');
+                    bgImage.classList.add('fade-out');
+                }, 5000);
+            }, 15000);
+        });
+    </script>
+</body>
+</html>

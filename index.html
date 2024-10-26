@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/6062/6062647.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequoia Drone Services</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/MotionPathPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <!-- tsParticles for Particle Effects -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/dist/tsparticles.min.js"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p8Mw1J+8L7U+3+5mW5a6x7Jk0JmGkZ1t3XcT4Qk5Z0VwFz8JwVJqZ1xk5D0Q3q7m+v1+0YJZg5QXGxK9e5L+Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .float { animation: float 6s ease-in-out infinite; }
+        .parallax { transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        /* Custom Styles for Particle Effects */
+        .testimonial-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+        .particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .testimonial-content {
+            position: relative;
+            z-index: 3;
+        }
+        /* Drone Common Styles */
+        .drone {
+            position: absolute;
+            pointer-events: none;
+            will-change: transform;
+            filter: drop-shadow(0 0 5px rgba(0, 255, 0, 0.2));
+            transition: filter 0.3s ease;
+        }
+        .drone:hover {
+            filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.4));
+        }
+        /* Loader Styles */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #111827;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        .spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #4ade80;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        .particle-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 16px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            min-width: 240px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Speed control styles */
+        .speed-control {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .speed-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .speed-label span:last-child {
+            color: #00ff00;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+
+        /* Enhanced slider styling */
+        input[type="range"] {
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 255, 0, 0.1);
+            border-radius: 2px;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #00ff00;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+        }
+
+        body {
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(0, 255, 0, 0.2)); }
+            50% { filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.4)); }
+        }
+
+        .drone.active {
+            animation: glow 2s infinite;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-900 text-white overflow-x-hidden">
+    <!-- Include header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Add this script right after the header placeholder -->
+    <script>
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <!-- SVG Paths for Drone Flight -->
+    <svg width="0" height="0" class="absolute">
+        <defs>
+            <!-- Dynamic curved paths that cover more screen space -->
+            <path id="path1" d="M0,50 C300,0 700,100 1000,50 C1300,0 1700,100 2000,50" />
+            <path id="path2" d="M0,150 C200,300 400,0 600,150 C800,300 1000,0 1200,150" />
+            <path id="path3" d="M-100,300 Q200,600 500,300 T1100,300 T1700,300" />
+            <path id="path4" d="M0,400 C100,200 300,600 400,400 C500,200 700,600 800,400" />
+            <path id="path5" d="M100,500 Q400,100 700,500 T1000,500 T1300,500" />
+        </defs>
+    </svg>
+
+    <!-- Hero Section -->
+    <header id="home" class="relative h-screen w-full overflow-hidden">
+        <video autoplay loop muted poster="https://yourdomain.com/path-to-poster.jpg" class="absolute w-full h-full object-cover scale-125">
+            <source src="https://yourdomain.com/path-to-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
+        <div class="absolute inset-0 flex flex-col justify-center items-center text-white text-center z-10">
+            <!-- <img src="assets/images/droneShowcase.png/++" alt="Drone Showcase" class="w-32 h-32 mb-6"> -->
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-wider float">Sequoia Drone Services</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl">Elevating perspectives with cutting-edge aerial solutions</p>
+            <a href="#contact" class="bg-green-500 hover:bg-green-600 text-white py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105">Take Flight</a>
+        </div>
+        
+        <!-- Drone container with multiple drones -->
+        <div class="absolute inset-0 pointer-events-none">
+            <img src="assets/images/drone_gif.gif" alt="Drone" class="drone drone-1 absolute w-16 h-16" />
+            <img src="assets/images/drone_gif.gif" alt="Drone" class="drone drone-2 absolute w-14 h-14" />
+            <img src="assets/images/drone_gif.gif" alt="Drone" class="drone drone-3 absolute w-12 h-12" />
+        </div>
+    </header>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-24 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <!-- Replace random image with local image -->
+                    <img src="assets/images/arialview.png" alt="About Sequoia Drone Services" class="w-full rounded-lg shadow-lg transform hover:scale-105 transition duration-500">
+                </div>
+                <div class="md:w-1/2 md:pl-12">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">About Us</h2>
+                    <p class="text-xl text-gray-300 mb-6">Sequoia Drone Services is committed to providing top-tier aerial solutions across various industries. With a team of certified pilots and state-of-the-art drones, we ensure precision, safety, and unparalleled quality in every project.</p>
+                    <a href="#portfolio" class="bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105">Our Work</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center">Our Services</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Cards -->
+                <div class="bg-gray-700 rounded-lg shadow-xl overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+                    <img src="assets/images/area_observation.png" alt="Drone capturing aerial photography" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold mb-2">Photo & Video</h3>
+                        <p class="text-gray-300">Capture breathtaking aerial footage and stills</p>
+                    </div>
+                </div>
+                <div class="bg-gray-700 rounded-lg shadow-xl overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+                    <img src="assets/images/industrial_side_visit_with_drone.png" alt="Aerial view of real estate" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold mb-2">Real Estate</h3>
+                        <p class="text-gray-300">Showcase properties from a whole new perspective</p>
+                    </div>
+                </div>
+                <div class="bg-gray-700 rounded-lg shadow-xl overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+                    <img src="assets/images/area_patrol_with_drones.png" alt="Drone conducting inspection" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold mb-2">Inspection</h3>
+                        <p class="text-gray-300">Conduct safe and efficient aerial inspections</p>
+                    </div>
+                </div>
+                <div class="bg-gray-700 rounded-lg shadow-xl overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+                    <img src="assets/images/thermalImaging.png" alt="Thermal imaging with drone" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold mb-2">Thermal Imaging</h3>
+                        <p class="text-gray-300">Detect heat signatures with precision</p>
+                    </div>
+                </div>
+                <div class="bg-gray-700 rounded-lg shadow-xl overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+                    <img src="assets/images/concert_watching_with_drone.png" alt="Drone livestreaming event" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold mb-2">Livestream</h3>
+                        <p class="text-gray-300">Broadcast events in real-time from the sky</p>
+                    </div>
+                </div>
+                <div class="bg-gray-700 rounded-lg shadow-xl overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+                    <img src="assets/images/crop_scanningWithDrone.png" alt="Drone mapping agriculture" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold mb-2">Mapping & Agro</h3>
+                        <p class="text-gray-300">Create detailed maps and monitor crop health</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-24 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center">Our Portfolio</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Portfolio Items -->
+                <div class="relative group">
+                    <img src="assets/images/clientMeeting.png" alt="Project 1" class="w-full h-64 object-cover rounded-lg shadow-lg transform transition duration-500 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-center items-center">
+                        <a href="#" class="text-white text-lg font-semibold bg-green-500 py-2 px-4 rounded">View Project</a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <img src="assets/images/custoerFeedBackDrone.png" alt="Project 2" class="w-full h-64 object-cover rounded-lg shadow-lg transform transition duration-500 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-center items-center">
+                        <a href="#" class="text-white text-lg font-semibold bg-green-500 py-2 px-4 rounded">View Project</a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <img src="assets/images/area_patrol_with_drones.png" alt="Project 3" class="w-full h-64 object-cover rounded-lg shadow-lg transform transition duration-500 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-center items-center">
+                        <a href="#" class="text-white text-lg font-semibold bg-green-500 py-2 px-4 rounded">View Project</a>
+                    </div>
+                </div>
+                <!-- Add more portfolio items as needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section with Particle Effects -->
+    <section id="testimonials" class="py-24 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center">Testimonials</h2>
+            <div class="flex flex-col md:flex-row justify-center items-center md:space-x-8 space-y-8 md:space-y-0">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-container bg-gray-700 p-6 rounded-lg shadow-xl max-w-md relative">
+                    <!-- Particle Canvas -->
+                    <div id="particles-1" class="particles-js"></div>
+                    <!-- Testimonial Content -->
+                    <div class="testimonial-content">
+                        <p class="text-gray-300 mb-4">"Sequoia Drone Services transformed our real estate listings with stunning aerial shots. Their professionalism and quality are unmatched."</p>
+                        <div class="flex items-center">
+                            <img src="https://via.placeholder.com/50" alt="Client 1" class="rounded-full mr-4">
+                            <div>
+                                <h4 class="text-lg font-semibold">Jane Doe</h4>
+                                <p class="text-gray-400">Real Estate Developer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="testimonial-container bg-gray-700 p-6 rounded-lg shadow-xl max-w-md relative">
+                    <!-- Particle Canvas -->
+                    <div id="particles-2" class="particles-js"></div>
+                    <!-- Testimonial Content -->
+                    <div class="testimonial-content">
+                        <p class="text-gray-300 mb-4">"Their inspection services saved us time and resources. The data collected was precise and invaluable."</p>
+                        <div class="flex items-center">
+                            <img src="https://via.placeholder.com/50" alt="Client 2" class="rounded-full mr-4">
+                            <div>
+                                <h4 class="text-lg font-semibold">John Smith</h4>
+                                <p class="text-gray-400">Infrastructure Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="testimonial-container bg-gray-700 p-6 rounded-lg shadow-xl max-w-md relative">
+                    <!-- Particle Canvas -->
+                    <div id="particles-3" class="particles-js"></div>
+                    <!-- Testimonial Content -->
+                    <div class="testimonial-content">
+                        <p class="text-gray-300 mb-4">"Their thermal imaging capabilities provided critical insights into our agricultural projects. Highly recommended!"</p>
+                        <div class="flex items-center">
+                            <img src="https://via.placeholder.com/50" alt="Client 3" class="rounded-full mr-4">
+                            <div>
+                                <h4 class="text-lg font-semibold">Emily Clark</h4>
+                                <p class="text-gray-400">Agricultural Consultant</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Text Section -->
+    <section class="py-24 bg-gray-900 text-center relative overflow-hidden">
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 parallax">Elevate Your Business with Drone Technology</h2>
+            <p class="text-xl md:text-2xl max-w-4xl mx-auto parallax">We operate Northwestern Canada's most advanced drone fleet, delivering cutting-edge aerial solutions for a wide range of industries. From stunning visuals to precise data collection, we're here to take your projects to new heights.</p>
+        </div>
+        <div class="absolute top-0 left-0 w-full h-full opacity-10">
+            <img src="https://source.unsplash.com/random/1920x1080?drone,technology" alt="Background" class="w-full h-full object-cover">
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-green-600 text-white text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8">Ready for Takeoff?</h2>
+            <p class="text-xl mb-8">Let's discuss how we can elevate your next project with our drone expertise.</p>
+            <form action="https://formspree.io/f/your-form-id" method="POST" class="max-w-lg mx-auto">
+                <input type="text" name="name" placeholder="Your Name" class="w-full p-3 mb-4 rounded text-gray-800" required>
+                <input type="email" name="email" placeholder="Your Email" class="w-full p-3 mb-4 rounded text-gray-800" required>
+                <textarea name="message" placeholder="Your Message" class="w-full p-3 mb-4 rounded text-gray-800" rows="5" required></textarea>
+                <button type="submit" class="bg-white text-green-600 hover:bg-gray-200 py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105">Contact Us</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="py-24 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="w-full h-96 rounded-lg overflow-hidden shadow-xl">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9552081.809159197!2d-132.5603121!3d59.4318!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5387e2c1a6d7ee55%3A0x27beb0aa5b3c718b!2sNorthwestern%20Canada!5e0!3m2!1sen!2sus!4v1655668567345!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-gray-900 text-white text-center">
+        <div class="container mx-auto px-4">
+            <div class="mb-8">
+                <img src="https://yourdomain.com/path-to-logo.png" alt="Sequoia Drone Services Logo" class="mx-auto h-24 mb-4">
+                <p class="text-xl">Soaring above Northwestern Canada and beyond</p>
+            </div>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="https://facebook.com/yourprofile" class="text-white hover:text-green-500 transition duration-300"><i class="fab fa-facebook-f text-2xl"></i></a>
+                <a href="https://twitter.com/yourprofile" class="text-white hover:text-green-500 transition duration-300"><i class="fab fa-twitter text-2xl"></i></a>
+                <a href="https://instagram.com/yourprofile" class="text-white hover:text-green-500 transition duration-300"><i class="fab fa-instagram text-2xl"></i></a>
+                <a href="https://linkedin.com/in/yourprofile" class="text-white hover:text-green-500 transition duration-300"><i class="fab fa-linkedin-in text-2xl"></i></a>
+            </div>
+            <p class="text-sm">&copy; 2024 Sequoia Drone Services. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Optimized drone animation system -->
+    <script>
+    class EnhancedDroneController {
+        constructor() {
+            this.drones = [];
+            this.maxDrones = 4;
+            this.paths = this.generatePaths();
+            this.init();
+        }
+
+        generatePaths() {
+            // Generate complex flight paths
+            return {
+                bezierPath: (t) => ({
+                    x: window.innerWidth * (0.1 + 0.8 * Math.sin(t * 2 * Math.PI)),
+                    y: window.innerHeight * (0.1 + 0.8 * Math.cos(t * 3 * Math.PI))
+                }),
+                loopPath: (t) => ({
+                    x: window.innerWidth * (0.5 + 0.3 * Math.sin(t * 4 * Math.PI)),
+                    y: window.innerHeight * (0.5 + 0.3 * Math.cos(t * 4 * Math.PI))
+                }),
+                wavePath: (t) => ({
+                    x: window.innerWidth * t,
+                    y: window.innerHeight * (0.5 + 0.3 * Math.sin(t * 6 * Math.PI))
+                }),
+                spiralPath: (t) => {
+                    const angle = t * 8 * Math.PI;
+                    const radius = (1 - t) * Math.min(window.innerWidth, window.innerHeight) * 0.4;
+                    return {
+                        x: window.innerWidth / 2 + radius * Math.cos(angle),
+                        y: window.innerHeight / 2 + radius * Math.sin(angle)
+                    };
+                }
+            };
+        }
+
+        init() {
+            this.lazyLoadDrones();
+            window.addEventListener('resize', this.throttle(() => {
+                this.paths = this.generatePaths();
+                this.updateDronePositions();
+            }, 100));
+        }
+
+        lazyLoadDrones() {
+            for (let i = 0; i < this.maxDrones; i++) {
+                setTimeout(() => {
+                    this.createDrone(i);
+                }, i * 200);
+            }
+        }
+
+        createDrone(index) {
+            const drone = document.createElement('img');
+            drone.loading = "lazy";
+            drone.src = 'assets/images/drone_gif.gif';
+            drone.className = 'drone';
+            drone.style.cssText = `
+                position: absolute;
+                width: ${30 + Math.random() * 20}px;
+                opacity: ${0.6 + Math.random() * 0.4};
+                transition: transform 0.1s ease-out;
+                z-index: 1000;
+            `;
+            
+            document.body.appendChild(drone);
+
+            const pathTypes = ['bezierPath', 'loopPath', 'wavePath', 'spiralPath'];
+            const droneData = {
+                element: drone,
+                pathType: pathTypes[index % pathTypes.length],
+                progress: Math.random(),
+                speed: 0.0005 + Math.random() * 0.0005,
+                wobble: {
+                    x: Math.random() * 20,
+                    y: Math.random() * 20,
+                    angle: Math.random() * Math.PI * 2
+                }
+            };
+
+            this.drones.push(droneData);
+            this.animateDrone(droneData);
+        }
+
+        animateDrone(drone) {
+            const animate = () => {
+                if (!document.hidden) {
+                    // Update progress
+                    drone.progress += drone.speed;
+                    if (drone.progress > 1) {
+                        drone.progress = 0;
+                        // Randomly change path type
+                        const pathTypes = ['bezierPath', 'loopPath', 'wavePath', 'spiralPath'];
+                        drone.pathType = pathTypes[Math.floor(Math.random() * pathTypes.length)];
+                    }
+
+                    // Calculate position
+                    const basePosition = this.paths[drone.pathType](drone.progress);
+
+                    // Add wobble effect
+                    drone.wobble.angle += 0.05;
+                    const wobbleX = Math.sin(drone.wobble.angle) * drone.wobble.x;
+                    const wobbleY = Math.cos(drone.wobble.angle) * drone.wobble.y;
+
+                    // Calculate rotation based on movement direction
+                    const nextPosition = this.paths[drone.pathType](drone.progress + 0.01);
+                    const angle = Math.atan2(
+                        nextPosition.y - basePosition.y,
+                        nextPosition.x - basePosition.x
+                    ) * (180 / Math.PI);
+
+                    // Apply transforms
+                    drone.element.style.transform = `
+                        translate(${basePosition.x + wobbleX}px, ${basePosition.y + wobbleY}px)
+                        rotate(${angle}deg)
+                    `;
+                }
+                requestAnimationFrame(animate);
+            };
+
+            requestAnimationFrame(animate);
+        }
+
+        updateDronePositions() {
+            this.drones.forEach(drone => {
+                const position = this.paths[drone.pathType](drone.progress);
+                drone.element.style.transform = `translate(${position.x}px, ${position.y}px)`;
+            });
+        }
+
+        throttle(func, limit) {
+            let inThrottle;
+            return function(...args) {
+                if (!inThrottle) {
+                    func.apply(this, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            }
+        }
+    }
+
+    // Initialize after page load
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('loader');
+        const controller = new EnhancedDroneController();
+        
+        setTimeout(() => {
+            loader.style.opacity = '0';
+            setTimeout(() => loader.remove(), 500);
+        }, 500);
+    });
+    </script>
+
+    <!-- tsParticles Initialization for Testimonials -->
+    <script>
+        // Function to initialize particles for a specific container
+        function initParticles(containerId) {
+            tsParticles.load(containerId, {
+                fpsLimit: 60,
+                particles: {
+                    number: {
+                        value: 20,
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: "#4ade80"
+                    },
+                    shape: {
+                        type: "circle",
+                        stroke: {
+                            width: 0,
+                            color: "#000000"
+                        },
+                        polygon: {
+                            nb_sides: 5
+                        }
+                    },
+                    opacity: {
+                        value: 0.5,
+                        random: false,
+                        anim: {
+                            enable: false,
+                            speed: 1,
+                            opacity_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    size: {
+                        value: 3,
+                        random: true,
+                        anim: {
+                            enable: false,
+                            speed: 40,
+                            size_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: false,
+                        straight: false,
+                        out_mode: "out",
+                        attract: {
+                            enable: false,
+                            rotateX: 600,
+                            rotateY: 1200
+                        }
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: "repulse"
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: "push"
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 400,
+                            line_linked: {
+                                opacity: 1
+                            }
+                        },
+                        bubble: {
+                            distance: 400,
+                            size: 40,
+                            duration: 2,
+                            opacity: 8,
+                            speed: 3
+                        },
+                        repulse: {
+                            distance: 100,
+                            duration: 0.4
+                        },
+                        push: {
+                            particles_nb: 4
+                        },
+                        remove: {
+                            particles_nb: 2
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        let scene, camera, renderer, cube;
+
+        function init() {
+            // Scene setup
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ alpha: true });
+            renderer.setSize(100, 100);
+            document.getElementById('logo-container').appendChild(renderer.domElement);
+
+            // Create cube
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            const loader = new THREE.TextureLoader();
+            const texture = loader.load('https://via.placeholder.com/150?text=Sequoia+Logo');
+            const material = new THREE.MeshBasicMaterial({ map: texture });
+            cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+
+            camera.position.z = 2;
+
+            // Initial animation
+            gsap.to(cube.rotation, { 
+                duration: 2, 
+                x: Math.PI * 2, 
+                y: Math.PI * 2, 
+                ease: "power2.inOut" 
+            });
+
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        function onScroll() {
+            const scrollY = window.scrollY;
+            gsap.to(cube.rotation, { 
+                duration: 1, 
+                x: scrollY * 0.002, 
+                y: scrollY * 0.002, 
+                ease: "power1.out" 
+            });
+        }
+
+        init();
+        window.addEventListener('scroll', onScroll);
+    </script>
+
+    <canvas id="particle-canvas"></canvas>
+    <div class="particle-controls">
+        <div class="speed-control">
+            <div class="speed-label">
+                <span>Animation Speed</span>
+                <span id="speedValue">100%</span>
+            </div>
+            <div class="speed-slider">
+                <input type="range" id="speedControl" min="1" max="200" value="100">
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+    let isAnimating = true;
+    let currentMode = 'propeller'; // 'propeller', 'gps', 'flash'
+
+    // Resize handler
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+        constructor(mode) {
+            this.reset(mode);
+        }
+
+        reset(mode) {
+            this.mode = mode;
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 3 + 1;
+            this.speedX = Math.random() * 3 - 1.5;
+            this.speedY = Math.random() * 3 - 1.5;
+            this.life = 1;
+            this.color = `rgba(0, ${Math.random() * 255}, 0,`;
+
+            if (mode === 'propeller') {
+                this.speedX *= 2;
+                this.speedY *= 2;
+                this.life = Math.random() * 0.5 + 0.5;
+            } else if (mode === 'gps') {
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+            } else if (mode === 'flash') {
+                this.size = Math.random() * 5 + 2;
+                this.life = Math.random() * 0.3 + 0.7;
+            }
+        }
+
+        update() {
+            if (this.mode === 'propeller') {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life -= 0.01;
+            } else if (this.mode === 'gps') {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.size += 0.1;
+                this.life -= 0.005;
+            } else if (this.mode === 'flash') {
+                this.size += 0.2;
+                this.life -= 0.02;
+            }
+
+            if (this.life <= 0) this.reset(this.mode);
+        }
+
+        draw() {
+            ctx.beginPath();
+            
+            if (this.mode === 'propeller') {
+                ctx.fillStyle = `${this.color}${this.life})`;
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            } else if (this.mode === 'gps') {
+                ctx.strokeStyle = `${this.color}${this.life})`;
+                ctx.lineWidth = 2;
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.stroke();
+            } else if (this.mode === 'flash') {
+                const gradient = ctx.createRadialGradient(
+                    this.x, this.y, 0,
+                    this.x, this.y, this.size
+                );
+                gradient.addColorStop(0, `rgba(255, 255, 255, ${this.life})`);
+                gradient.addColorStop(1, `rgba(0, 255, 0, 0)`);
+                ctx.fillStyle = gradient;
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+    }
+
+    const particles = Array(100).fill().map(() => new Particle(currentMode));
+
+    function animate() {
+        if (!isAnimating) return;
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        particles.forEach(particle => {
+            particle.update();
+            particle.draw();
+        });
+        
+        animationFrameId = requestAnimationFrame(animate);
+    }
+
+    function toggleParticles() {
+        isAnimating = !isAnimating;
+        if (isAnimating) {
+            animate();
+        } else {
+            cancelAnimationFrame(animationFrameId);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+
+    function changeParticleMode() {
+        const modes = ['propeller', 'gps', 'flash'];
+        currentMode = modes[(modes.indexOf(currentMode) + 1) % modes.length];
+        particles.forEach(particle => particle.reset(currentMode));
+    }
+
+    // Start animation
+    animate();
+
+    // Add scroll-based intensity
+    window.addEventListener('scroll', () => {
+        const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+        particles.forEach(particle => {
+            if (particle.mode === 'propeller') {
+                particle.speedX *= 1 + scrollPercent;
+                particle.speedY *= 1 + scrollPercent;
+            } else if (particle.mode === 'gps') {
+                particle.size *= 1 + scrollPercent;
+            }
+        });
+    });
+    </script>
+
+    <!-- Add smooth scrolling to contact button -->
+    <script>
+        document.querySelector('a[href="#contact"]').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Add hover animations to service cards
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card.querySelector('img'), {
+                    scale: 1.1,
+                    duration: 0.3
+                });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card.querySelector('img'), {
+                    scale: 1,
+                    duration: 0.3
+                });
+            });
+        });
+    </script>
+
+    <script>
+    class DroneControlSystem {
+        constructor(droneController) {
+            this.droneController = droneController;
+            this.animationSpeed = 1;
+            this.droneSpeed = 0.5; // Set default speed to slower
+            this.initializeControls();
+        }
+
+        initializeControls() {
+            // Animation Speed Control
+            const animationControl = document.getElementById('animationControl');
+            const animationSpeedValue = document.getElementById('animationSpeedValue');
+            
+            animationControl.addEventListener('input', (e) => {
+                const value = e.target.value;
+                this.animationSpeed = value / 100;
+                animationSpeedValue.textContent = `${value}%`;
+                this.droneController.updateAnimationSpeed(this.animationSpeed);
+            });
+
+            // Drone Flight Speed Control - Adjusted range and default
+            const droneSpeedControl = document.getElementById('droneSpeedControl');
+            const droneSpeedValue = document.getElementById('droneSpeedValue');
+            
+            // Set initial values
+            droneSpeedControl.value = 50; // Start at 50%
+            droneSpeedValue.textContent = '50%';
+            
+            droneSpeedControl.addEventListener('input', (e) => {
+                const value = e.target.value;
+                this.droneSpeed = value / 200; // Reduced speed factor
+                droneSpeedValue.textContent = `${value}%`;
+                this.droneController.updateDroneSpeed(this.droneSpeed);
+            });
+        }
+    }
+
+    // Update HeroDroneController class
+    class HeroDroneController {
+        constructor() {
+            this.drones = document.querySelectorAll('.drone');
+            this.initializeDrones();
+        }
+
+        updateAnimationSpeed(speed) {
+            // Update animation speed for particle effects
+            this.drones.forEach(drone => {
+                drone.style.animationDuration = `${6 / speed}s`;
+            });
+        }
+
+        updateDroneSpeed(speed) {
+            // Slower base duration for smoother movement
+            const baseDuration = 4; // Increased from 2 to 4 for slower default speed
+            
+            this.drones.forEach(drone => {
+                gsap.to(drone, {
+                    duration: baseDuration / speed,
+                    ease: "none",
+                    motionPath: {
+                        path: "#path1",
+                        align: "#path1",
+                        autoRotate: true,
+                        alignOrigin: [0.5, 0.5]
+                    },
+                    repeat: -1
+                });
+            });
+        }
+
+        initializeDrones() {
+            // Initialize with slower speed
+            this.drones.forEach((drone, index) => {
+                gsap.to(drone, {
+                    duration: 4, // Slower initial duration
+                    ease: "none",
+                    motionPath: {
+                        path: `#path${(index % 5) + 1}`,
+                        align: `#path${(index % 5) + 1}`,
+                        autoRotate: true,
+                        alignOrigin: [0.5, 0.5]
+                    },
+                    repeat: -1
+                });
+            });
+        }
+    }
+
+    // Initialize both controllers
+    window.addEventListener('load', () => {
+        const droneController = new HeroDroneController();
+        const controlSystem = new DroneControlSystem(droneController);
+    });
+    </script>
+
+</body>
+</html>

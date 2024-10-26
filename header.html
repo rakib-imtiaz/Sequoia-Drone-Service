@@ -1,0 +1,185 @@
+<!-- Navigation -->
+<nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 bg-transparent">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <a href="index.html" class="text-white text-2xl font-bold">Sequoia</a>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:block">
+                <div class="ml-10 flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-white hover:text-green-400 transition-colors">Home</a>
+                    
+                    <!-- Services Dropdown -->
+                    <div class="relative group">
+                        <button class="nav-link text-white hover:text-green-400 transition-colors flex items-center">
+                            Services
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="absolute left-0 mt-2 w-64 bg-gray-900 bg-opacity-95 rounded-lg shadow-xl py-2 hidden group-hover:block">
+                            <a href="photo-video.html" class="block px-4 py-2 text-sm text-white hover:bg-green-500 hover:text-white">Photo / Video</a>
+                            <a href="asset-inspection.html" class="block px-4 py-2 text-sm text-white hover:bg-green-500 hover:text-white">Asset Inspection</a>
+                            <a href="thermal-imaging.html" class="block px-4 py-2 text-sm text-white hover:bg-green-500 hover:text-white">Thermal Imaging & Inspections</a>
+                            <a href="mapping.html" class="block px-4 py-2 text-sm text-white hover:bg-green-500 hover:text-white">Mapping & Agriculture Applications</a>
+                            <a href="real-estate.html" class="block px-4 py-2 text-sm text-white hover:bg-green-500 hover:text-white">Real Estate Photography</a>
+                            <a href="search-rescue.html" class="block px-4 py-2 text-sm text-white hover:bg-green-500 hover:text-white">Search & Rescue, Municipal Applications</a>
+                            <a href="events.html" class="block px-4 py-2 text-sm text-white hover:bg-green-500 hover:text-white">Events / Livestream</a>
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="nav-link bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition-colors">Contact</a>
+                </div>
+            </div>
+            
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white hover:text-green-400 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-gray-900 bg-opacity-95">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="index.html" class="nav-link mobile-link block text-white hover:text-green-400 transition-colors px-3 py-2">Home</a>
+            
+            <!-- Mobile Services Menu -->
+            <div class="space-y-1 pl-4">
+                <div class="text-green-400 px-3 py-2 text-sm font-medium">Services</div>
+                <a href="photo-video.html" class="block text-white hover:text-green-400 transition-colors px-3 py-2 text-sm">Photo / Video</a>
+                <a href="asset-inspection.html" class="block text-white hover:text-green-400 transition-colors px-3 py-2 text-sm">Asset Inspection</a>
+                <a href="thermal-imaging.html" class="block text-white hover:text-green-400 transition-colors px-3 py-2 text-sm">Thermal Imaging & Inspections</a>
+                <a href="mapping.html" class="block text-white hover:text-green-400 transition-colors px-3 py-2 text-sm">Mapping & Agriculture Applications</a>
+                <a href="real-estate.html" class="block text-white hover:text-green-400 transition-colors px-3 py-2 text-sm">Real Estate Photography</a>
+                <a href="search-rescue.html" class="block text-white hover:text-green-400 transition-colors px-3 py-2 text-sm">Search & Rescue, Municipal Applications</a>
+                <a href="events.html" class="block text-white hover:text-green-400 transition-colors px-3 py-2 text-sm">Events / Livestream</a>
+            </div>
+
+            <a href="#contact" class="nav-link mobile-link block bg-green-500 text-white px-3 py-2 rounded-full hover:bg-green-600 transition-colors text-center mt-4">Contact</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Navbar Styles -->
+<style>
+    /* Additional styles for navbar */
+    #navbar {
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+    }
+
+    .nav-link {
+        position: relative;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: #4ade80;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+    /* Mobile menu animation */
+    #mobile-menu {
+        transition: all 0.3s ease-in-out;
+    }
+
+    @media (max-width: 768px) {
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        #mobile-menu.hidden {
+            max-height: 0;
+        }
+
+        #mobile-menu:not(.hidden) {
+            max-height: 400px;
+        }
+    }
+</style>
+
+<!-- Navbar Script -->
+<script>
+    // Navbar Scroll Effect
+    document.addEventListener('DOMContentLoaded', () => {
+        const navbar = document.getElementById('navbar');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        let lastScroll = 0;
+
+        // Mobile menu toggle
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            // Add/remove background when scrolling
+            if (currentScroll > 50) {
+                navbar.classList.add('bg-gray-900', 'bg-opacity-95', 'shadow-lg');
+            } else {
+                navbar.classList.remove('bg-gray-900', 'bg-opacity-95', 'shadow-lg');
+            }
+
+            // Hide/show navbar based on scroll direction
+            if (currentScroll > lastScroll && currentScroll > 500) {
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                navbar.style.transform = 'translateY(0)';
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Active section highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-green-400');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('text-green-400');
+                }
+            });
+        });
+    });
+</script>

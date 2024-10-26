@@ -1,0 +1,153 @@
+<!-- Footer -->
+<footer class="py-12 bg-gray-900 text-white">
+    <div class="container mx-auto px-4">
+        <!-- Footer Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <!-- Company Info -->
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold mb-4">Sequoia Drone Services</h3>
+                <p class="text-gray-400">Soaring above Northwestern Canada and beyond</p>
+                <div class="flex space-x-4">
+                    <a href="https://facebook.com/sequoiadrone" class="text-white hover:text-green-500 transition duration-300">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/sequoiadrone" class="text-white hover:text-green-500 transition duration-300">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/sequoiadrone" class="text-white hover:text-green-500 transition duration-300">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/sequoiadrone" class="text-white hover:text-green-500 transition duration-300">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h3 class="text-xl font-bold mb-4">Services</h3>
+                <ul class="space-y-2">
+                    <li><a href="photo-video.html" class="text-gray-400 hover:text-green-500 transition duration-300">Photo & Video</a></li>
+                    <li><a href="asset-inspection.html" class="text-gray-400 hover:text-green-500 transition duration-300">Asset Inspection</a></li>
+                    <li><a href="thermal-imaging.html" class="text-gray-400 hover:text-green-500 transition duration-300">Thermal Imaging</a></li>
+                    <li><a href="mapping.html" class="text-gray-400 hover:text-green-500 transition duration-300">Mapping & Agriculture</a></li>
+                    <li><a href="real-estate.html" class="text-gray-400 hover:text-green-500 transition duration-300">Real Estate</a></li>
+                    <li><a href="events.html" class="text-gray-400 hover:text-green-500 transition duration-300">Events & Livestream</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div>
+                <h3 class="text-xl font-bold mb-4">Contact</h3>
+                <ul class="space-y-2">
+                    <li class="text-gray-400">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        Northwestern Canada
+                    </li>
+                    <li>
+                        <a href="tel:+1234567890" class="text-gray-400 hover:text-green-500 transition duration-300">
+                            <i class="fas fa-phone mr-2"></i>
+                            (123) 456-7890
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:info@sequoiadrone.com" class="text-gray-400 hover:text-green-500 transition duration-300">
+                            <i class="fas fa-envelope mr-2"></i>
+                            info@sequoiadrone.com
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div>
+                <h3 class="text-xl font-bold mb-4">Newsletter</h3>
+                <p class="text-gray-400 mb-4">Subscribe to our newsletter for updates and drone industry news.</p>
+                <form class="space-y-2">
+                    <input type="email" placeholder="Your email" class="w-full px-4 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-green-500">
+                    <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded transition duration-300">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="border-t border-gray-800 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">&copy; 2024 Sequoia Drone Services. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="privacy-policy.html" class="text-gray-400 hover:text-green-500 transition duration-300">Privacy Policy</a>
+                    <a href="terms-of-service.html" class="text-gray-400 hover:text-green-500 transition duration-300">Terms of Service</a>
+                    <a href="sitemap.html" class="text-gray-400 hover:text-green-500 transition duration-300">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    /* Footer hover effects */
+    .footer-link {
+        position: relative;
+        display: inline-block;
+    }
+
+    .footer-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background-color: #4ade80;
+        transition: width 0.3s ease;
+    }
+
+    .footer-link:hover::after {
+        width: 100%;
+    }
+
+    /* Newsletter input animation */
+    input:focus {
+        transform: translateY(-2px);
+        transition: transform 0.3s ease;
+    }
+
+    /* Social icons hover animation */
+    .fab {
+        transition: transform 0.3s ease;
+    }
+
+    .fab:hover {
+        transform: translateY(-3px);
+    }
+</style>
+
+<script>
+    // Newsletter form handling
+    document.addEventListener('DOMContentLoaded', () => {
+        const newsletterForm = document.querySelector('footer form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = e.target.querySelector('input[type="email"]').value;
+                
+                // Add your newsletter subscription logic here
+                console.log('Newsletter subscription for:', email);
+                
+                // Show success message
+                const button = e.target.querySelector('button');
+                const originalText = button.textContent;
+                button.textContent = 'Subscribed!';
+                button.style.backgroundColor = '#059669'; // darker green
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.backgroundColor = '';
+                    e.target.reset();
+                }, 2000);
+            });
+        }
+    });
+</script>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search & Rescue Operations - Sequoia Drone</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/6062/6062647.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body class="bg-gray-900 text-white overflow-x-hidden">
+    <div id="header-placeholder"></div>
+
+    <!-- Futuristic Hero Section -->
+    <section class="relative min-h-screen">
+        <div class="radar-grid absolute inset-0">
+            <div class="radar-sweep"></div>
+        </div>
+        <div class="thermal-overlay absolute inset-0"></div>
+        <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover opacity-40">
+            <source src="assets/videos/thermal-scan.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-gray-900"></div>
+        
+        <div class="relative container mx-auto px-4 h-full flex items-center">
+            <div class="max-w-4xl mx-auto text-center md:text-left">
+                <div class="tech-badge mb-6 inline-flex">
+                    <div class="tech-pulse"></div>
+                    <span class="typing-text text-sm md:text-base">SEARCH & RESCUE OPERATIONS</span>
+                </div>
+                <br><br>
+                <h1 class="text-4xl md:text-7xl font-bold mb-8 cyber-glitch">
+                    <span class="block transform transition-all duration-500 hover:translate-x-2">THERMAL</span>
+                    <span class="block text-red-500 transform transition-all duration-500 hover:translate-x-2">DETECTION</span>
+                    <span class="block transform transition-all duration-500 hover:translate-x-2">SYSTEM</span>
+                </h1>
+                <p class="text-lg md:text-xl mb-8 max-w-2xl leading-relaxed tech-fade mx-auto md:mx-0">
+                    One of the most important applications of thermal imaging is in the field of first response. 
+                    We are proud to collaborate with municipalities and regional/county districts in northern regions.
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- Equipment Showcase -->
+    <section class="py-12 md:py-20 relative equipment-section overflow-hidden">
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center">Advanced Equipment Arsenal</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                    <img src="assets/images/thermal-camera.jpg" alt="Thermal Camera" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-4">High-Resolution Thermal Imaging</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <span class="mr-2 text-green-400">&#8226;</span>
+                                Specialized drone for emergency services
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mr-2 text-green-400">&#8226;</span>
+                                High resolution thermal imaging
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mr-2 text-green-400">&#8226;</span>
+                                Livestream to command center
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                    <img src="assets/images/night-vision.jpg" alt="Night Vision Camera" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-4">Advanced Night Vision</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <span class="mr-2 text-green-400">&#8226;</span>
+                                Ultra-sensitive low-light cameras
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mr-2 text-green-400">&#8226;</span>
+                                Infrared illuminators for darkness
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mr-2 text-green-400">&#8226;</span>
+                                Real-time image enhancement
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                    <img src="assets/images/lidar-scanner.jpg" alt="LiDAR Scanner" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-4">LiDAR Terrain Mapping</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <span class="mr-2 text-green-400">&#8226;</span>
+                                High-precision 3D terrain mapping
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mr-2 text-green-400">&#8226;</span>
+                                Obstacle detection and avoidance
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mr-2 text-green-400">&#8226;</span>
+                                Real-time data processing
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantage Section -->
+    <section class="py-20 relative advantage-section">
+        <div class="cyber-lines absolute inset-0"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="text-4xl font-bold mb-12">The <span class="text-green-400">Sequoia</span>DRONE Advantage</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="advantage-card">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Safety is our priority</h3>
+                    <p>Established SOPs and robust safety systems to keep everyone safe, and save both time and money.</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="card-icon">
+                        <i class="fas fa-bolt text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Rapid Response</h3>
+                    <p>Our drones can be deployed quickly, providing crucial information in time-sensitive situations.</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="card-icon">
+                        <i class="fas fa-cogs text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Advanced Technology</h3>
+                    <p>Equipped with state-of-the-art sensors and imaging systems for superior data collection and analysis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 relative cta-section">
+        <div class="tech-waves absolute inset-0"></div>
+        <div class="container mx-auto px-4 relative z-10 text-center">
+            <h2 class="text-4xl font-bold mb-8">Interested In Discussing Municipal Applications For Drone Tech?</h2>
+            <p class="mb-8 max-w-2xl mx-auto">
+                Talk to one of our professionals to get the expert advice you need to take 
+                full advantage of our years of experience in the drone industry.
+            </p>
+            <a href="#contact" class="cyber-button">
+                <span class="button-text">Contact Us</span>
+                <span class="button-glitch"></span>
+            </a>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <style>
+        /* Smooth scrolling for entire page */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Improved animations */
+        .tech-card {
+            @apply bg-gray-800 rounded-lg p-6 backdrop-blur-lg bg-opacity-50;
+            border: 1px solid rgba(0,255,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .tech-card:hover {
+            border-color: rgba(0,255,0,0.3);
+            box-shadow: 0 0 20px rgba(0,255,0,0.1);
+        }
+
+        /* Enhanced mobile-friendly animations */
+        @media (prefers-reduced-motion: no-preference) {
+            .tech-fade {
+                opacity: 0;
+                transform: translateY(20px);
+                animation: fadeIn 0.8s ease forwards;
+            }
+
+            .cyber-glitch span {
+                display: block;
+                opacity: 0;
+                transform: translateX(-20px);
+                animation: slideIn 0.5s ease forwards;
+            }
+
+            .cyber-glitch span:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+
+            .cyber-glitch span:nth-child(3) {
+                animation-delay: 0.4s;
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Improved radar effect */
+        .radar-sweep {
+            height: 1px;
+            opacity: 0.5;
+            filter: blur(1px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .radar-grid {
+                background-size: 15px 15px;
+            }
+            
+            .tech-badge {
+                @apply text-sm;
+            }
+        }
+
+        /* Thermal Effect Animations */
+        .thermal-overlay {
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(7, 7, 7, 0.2) 0px,
+                rgba(255, 101, 1, 0.08) 1px,
+                rgba(255, 101, 1, 0.08) 2px,
+                rgba(7, 7, 7, 0.2) 3px
+            );
+            animation: thermalScan 8s linear infinite;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .radar-grid {
+            background: 
+                linear-gradient(90deg, rgba(0,255,0,0.03) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(0,255,0,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.5;
+        }
+
+        .radar-sweep {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%,
+                rgba(0,255,0,0.2) 48%,
+                rgba(0,255,0,0.3) 50%,
+                rgba(0,255,0,0.2) 52%,
+                transparent 100%);
+            animation: radarSweep 4s linear infinite;
+        }
+
+        @keyframes thermalScan {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 0 100%;
+            }
+        }
+
+        @keyframes radarSweep {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Enhanced thermal effect for hover states */
+        .tech-card:hover::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 101, 1, 0.05) 0px,
+                rgba(255, 101, 1, 0.1
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize animations
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Smooth scroll animation for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Enhanced card animations
+            gsap.utils.toArray('.tech-card').forEach((card, index) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top bottom-=100',
+                        toggleActions: 'play none none reverse'
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    delay: index * 0.2
+                });
+            });
+
+            // Parallax effect for background elements
+            gsap.utils.toArray('.tech-waves, .cyber-lines, .hex-grid').forEach(element => {
+                gsap.to(element, {
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 1
+                    },
+                    y: -50,
+                    ease: 'none'
+                });
+            });
+
+            // Load Header and Footer
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-placeholder').innerHTML = data;
+                });
+
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                });
+        });
+    </script>
+</body>
+</html>

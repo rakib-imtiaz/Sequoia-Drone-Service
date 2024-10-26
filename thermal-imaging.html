@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thermal Imaging & Inspections - Sequoia Drone</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/6062/6062647.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Include header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Hero Section with Thermal Overlay Effect -->
+    <section class="relative h-[60vh] w-full overflow-hidden">
+        <div class="absolute inset-0 thermal-overlay">
+            <div class="thermal-scan"></div>
+        </div>
+        <div class="relative container mx-auto px-4 h-full flex items-center">
+            <div class="text-white max-w-3xl" data-aos="fade-up">
+                <h1 class="text-5xl font-bold mb-4">THERMAL IMAGING & INSPECTIONS</h1>
+                <p class="text-xl">Infrared thermal for fixed assets, structures, and equipment</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <!-- Intro Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+                <div class="space-y-6" data-aos="fade-right">
+                    <h2 class="text-2xl font-bold text-white-800">Professional Thermal Inspection</h2>
+                    <p class="text-white-700">
+                        Buildings should be professionally inspected using specialized thermal cameras detect infrared radiation not visible to the human eye. An aerial thermal survey can provide precise and detailed analysis of problems areas on structures in a non-invasive manner.
+                    </p>
+                    <p class="text-white-700">
+                        In northern Canada where minimizing heat loss can translate into considerable savings, especially on large commercial/industrial properties and structures. Performing an energy audit by thermal imaging drones is a cost-effective strategy for maintaining your asset.
+                    </p>
+                </div>
+                <div class="relative group" data-aos="fade-left">
+                    <div class="thermal-image-container">
+                        <img src="assets/images/thermal_normal.jpg" alt="Normal View" class="rounded-lg shadow-lg w-full transition-opacity duration-500">
+                        <img src="assets/images/thermal_infrared.jpg" alt="Thermal View" class="absolute top-0 left-0 w-full h-full rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    </div>
+                    <div class="absolute bottom-4 right-4 bg-black bg-opacity-75 text-white px-4 py-2 rounded-full text-sm">
+                        Hover to see thermal view
+                    </div>
+                </div>
+            </div>
+
+            <!-- Benefits Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="benefit-card" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fas fa-bolt text-4xl text-green-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Electrical Grid</h3>
+                    <p>Grid and substation inspection with precise thermal mapping</p>
+                </div>
+                <div class="benefit-card" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fas fa-building text-4xl text-green-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Building Membrane</h3>
+                    <p>Comprehensive inspection for heat loss and structural integrity</p>
+                </div>
+                <div class="benefit-card" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fas fa-solar-panel text-4xl text-green-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Solar Systems</h3>
+                    <p>Solar farm and solar panel inspection with detailed analysis</p>
+                </div>
+            </div>
+
+            <!-- Thermal Applications -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+                <div class="thermal-showcase" data-aos="fade-right">
+                    <img src="assets/images/thermal_building.jpg" alt="Thermal Building Scan" class="rounded-lg shadow-lg w-full">
+                </div>
+                <div class="space-y-6" data-aos="fade-left">
+                    <h2 class="text-2xl font-bold">Valuable Benefits</h2>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span>Electrical grid and substation inspection</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span>Building membrane inspection</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span>Indications of heat loss, air bypass leaks, missing insulation</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span>Identification overheating electrical components, HVAC, and other external equipment</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span>In-service assets like turbine and tower inspections</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add custom styles for animations -->
+    <style>
+    .thermal-overlay {
+        background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff);
+        opacity: 0.3;
+        animation: thermalScan 10s infinite;
+    }
+
+    .thermal-scan {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        animation: scan 3s linear infinite;
+    }
+
+    .benefit-card {
+        @apply bg-white p-6 rounded-lg shadow-lg text-center transform transition-transform duration-300 hover:scale-105;
+    }
+
+    .thermal-image-container {
+        position: relative;
+        overflow: hidden;
+    }
+
+    @keyframes thermalScan {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    @keyframes scan {
+        0% { left: -100%; }
+        100% { left: 100%; }
+    }
+    </style>
+
+    <!-- Include footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Header and Footer Loading Scripts -->
+    <script>
+        // Load Header
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+        // Load Footer
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+    </script>
+
+    <!-- AOS Initialization -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

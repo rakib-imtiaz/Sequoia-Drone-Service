@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Events & Streaming - Sequoia Drone</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/6062/6062647.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</head>
+<body class="bg-black text-white overflow-x-hidden">
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Interactive Particle Background -->
+    <div id="particles-js" class="fixed inset-0 z-0"></div>
+
+    <!-- New Hero/Intro Section -->
+    <section class="relative min-h-screen">
+        <!-- Background Video/Image with Overlay -->
+        <div class="absolute inset-0">
+            <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover opacity-40">
+                <source src="assets/videos/video-1_compressed.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-black opacity-60"></div>
+            <div class="tech-grid absolute inset-0"></div>
+            <div class="scan-line absolute w-full"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative container mx-auto px-4 h-screen flex items-center">
+            <div class="max-w-4xl">
+                <div class="tech-badge mb-6 inline-flex items-center">
+                    <div class="pulse-dot"></div>
+                    <span class="typing-text">LIVE EVENT COVERAGE</span>
+                </div>
+                
+                <h1 class="tech-glitch mb-8">
+                    <span class="text-4xl md:text-7xl font-bold text-white">REAL-TIME</span>
+                    <span class="text-4xl md:text-7xl font-bold text-red-500">AERIAL</span>
+                    <span class="text-4xl md:text-7xl font-bold text-white">BROADCASTING</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl tech-fade">
+                    Experience events from a whole new perspective with our cutting-edge drone livestreaming services. 
+                    Delivering breathtaking aerial coverage in crystal-clear 4K resolution.
+                </p>
+
+                <div class="flex flex-wrap gap-4">
+                    <a href="#services" class="tech-button">
+                        <span class="button-glow"></span>
+                        Explore Services
+                    </a>
+                    <a href="#contact" class="tech-button bg-transparent border-2 border-green-500 rounded-full py-3 px-3 hover:bg-green-500 hover:text-black transition-all duration-300 text-lg leading-tight">
+                        Get Started
+                    </a>
+                </div>
+
+                <!-- Scroll Indicator -->
+                <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+                    <div class="mouse"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HD Livestream Feed Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8">HD Livestream feed in real-time</h2>
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-1/2">
+                    <p class="mb-4">Using our HD stream capabilities, your specialist staff can co-consult during flight operations viewing live HD feed from the convenience of their own office, saving valuable time and valuable professional resources.</p>
+                    <p>We provide functionality to broadcast HD video live from drone at advertised events (subject to SFOC) via RTMP server, providing a unique opportunity for outdoor concerts, shows, and rodeos.</p>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="/assets/images/livestream-image.jpg"alt="Livestream feed" class="rounded-lg shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The N DRONE advantage Section -->
+    <section class="bg-gray-900 py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8">The N DRONE advantage:</h2>
+            <ul class="space-y-4">
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <div>
+                        <strong>Safety is our priority</strong> - Established SOP's and robust safety systems to keep everyone safe, and save both time and money
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <div>
+                        <strong>ROI</strong> - Investing in drone-based thermal imaging provides valuable and actionable data that can translate into huge cost benefits
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <div>
+                        <strong>Certified and insured</strong> - Our pilots are Transport Canada certified and able to shoot in advanced operating environments, in controlled airspace, over people (clearance needed) and even at night. We carry $5 million in specialty drone liability insurance.
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Talk To Us Section -->
+    <section class="py-16 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Talk To Us About Your Live-Stream Requirements</h2>
+            <p class="text-center mb-8">Need some more info live-stream aerial video feed? Talk to one of our professionals to get the expert advice you need to take full advantage of our years of experience in the drone industry.</p>
+            <div class="flex justify-center">
+                <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                    Contact Us
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Video Feed Section -->
+    <section class="py-20 relative overflow-hidden">
+        <div class="tech-grid absolute inset-0"></div>
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <!-- Live Feed Display -->
+                <div class="lg:w-1/2 relative">
+                    <div class="screen-container relative">
+                        <div class="live-indicator absolute top-4 left-4 z-10 flex items-center">
+                            <span class="live-dot"></span>
+                            <span class="text-red-500 font-semibold">LIVE</span>
+                        </div>
+                        
+                        <div class="screen p-2 bg-gray-900 rounded-lg border border-green-500/30">
+                            <video autoplay muted loop class="w-full rounded shadow-lg">
+                                <source src="/assets/videos/video-1_compressed.mp4" type="video/mp4">
+                            </video>
+                            
+                            <!-- Stream Controls -->
+                            <div class="stream-controls mt-4 p-4 glass-panel rounded-lg">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-green-400">Bitrate: <span class="slider-value">5.0 Mbps</span></span>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-sm text-green-400">Quality:</span>
+                                        <div class="quality-selector flex gap-2">
+                                            <button class="tech-pill-button active">4K</button>
+                                            <button class="tech-pill-button">1080p</button>
+                                            <button class="tech-pill-button">720p</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="range" class="neo-slider w-full" min="1000" max="10000" value="5000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feed Information -->
+                <div class="lg:w-1/2 space-y-6">
+                    <h2 class="text-3xl md:text-4xl font-bold text-green-400 mb-6">
+                        HD Livestream Feed in Real-Time
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="tech-info-card">
+                            <i class="fas fa-broadcast-tower text-green-400 text-xl mr-3"></i>
+                            <p>Stream in crystal clear 4K quality with ultra-low latency broadcasting capabilities.</p>
+                        </div>
+                        <div class="tech-info-card">
+                            <i class="fas fa-video text-green-400 text-xl mr-3"></i>
+                            <p>Remote viewing capabilities for specialist staff during flight operations.</p>
+                        </div>
+                        <div class="tech-info-card">
+                            <i class="fas fa-signal text-green-400 text-xl mr-3"></i>
+                            <p>RTMP server integration for seamless live event broadcasting.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-4 mt-8">
+                        <button class="cyber-button">
+                            <span class="cyber-button__glitch"></span>
+                            <span class="cyber-button__tag">NEW</span>
+                            Start Streaming
+                        </button>
+                        <button class="tech-outline-button">
+                            Learn More
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <style>
+        /* Futuristic Grid Background */
+        .cyber-grid {
+            background: 
+                linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: top;
+        }
+
+        /* Screen Styles */
+        .screen {
+            background: rgba(0,0,0,0.8);
+            border: 1px solid rgba(0,255,255,0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .screen::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent 0%, rgba(0,255,255,0.1) 100%);
+            pointer-events: none;
+        }
+
+        /* Neo-brutalism Controls */
+        .neo-slider {
+            height: 20px;
+            border-radius: 10px;
+            background: #2a2a2a;
+            border: 2px solid #00ffff;
+            appearance: none;
+        }
+
+        .neo-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #00ffff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0,255,255,0.5);
+        }
+
+        /* Animated Elements */
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #ff0000;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* More styles... */
+
+        /* Add these new animation styles */
+        .tech-fade {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .tech-badge {
+            background: rgba(0, 255, 128, 0.1);
+            border: 1px solid rgba(0, 255, 128, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        /* Enhanced scan line effect */
+        .scan-line {
+            height: 2px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 255, 128, 0.2),
+                rgba(0, 255, 128, 0.8),
+                rgba(0, 255, 128, 0.2),
+                transparent
+            );
+            opacity: 0.5;
+            animation: scanAnimation 3s linear infinite;
+        }
+
+        /* Enhanced grid effect */
+        .tech-grid {
+            background: 
+                linear-gradient(90deg, rgba(0,255,128,0.03) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(0,255,128,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.5;
+            animation: gridFloat 20s linear infinite;
+        }
+
+        @keyframes gridFloat {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.1); }
+            100% { transform: translateY(0) scale(1); }
+        }
+
+        /* Enhanced button hover effect */
+        .tech-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0,255,128,0.4);
+        }
+
+        .tech-button:hover .button-glow {
+            opacity: 1;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .tech-grid {
+                background-size: 15px 15px;
+            }
+            
+            .tech-badge {
+                @apply text-sm;
+            }
+        }
+
+        /* Enhanced Button Styles */
+        .cyber-button {
+            --cb-color: rgb(0, 255, 128);
+            position: relative;
+            padding: 0.8em 1.7em;
+            background: transparent;
+            border: 2px solid var(--cb-color);
+            color: var(--cb-color);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            overflow: hidden;
+            transition: 0.3s;
+            z-index: 1;
+        }
+
+        .cyber-button:hover {
+            color: black;
+            background: var(--cb-color);
+            box-shadow: 0 0 30px var(--cb-color);
+        }
+
+        .cyber-button__glitch {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--cb-color);
+            transform: translateX(-100%);
+            transition: 0.3s;
+            z-index: -1;
+        }
+
+        .cyber-button:hover .cyber-button__glitch {
+            transform: translateX(0);
+        }
+
+        .cyber-button__tag {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: var(--cb-color);
+            color: black;
+            font-size: 0.6em;
+            padding: 2px 6px;
+            transform: rotate(15deg);
+            border-radius: 3px;
+        }
+
+        .tech-outline-button {
+            padding: 0.8em 1.7em;
+            background: transparent;
+            border: 1px solid var(--cb-color);
+            color: var(--cb-color);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .tech-outline-button:hover {
+            background: rgba(0, 255, 128, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 128, 0.3);
+        }
+
+        /* Video Feed Styles */
+        .screen-container {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(16, 16, 16, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 128, 0.2);
+        }
+
+        .tech-pill-button {
+            padding: 0.3em 1em;
+            border: 1px solid rgba(0, 255, 128, 0.3);
+            border-radius: 20px;
+            font-size: 0.8em;
+            transition: all 0.3s ease;
+        }
+
+        .tech-pill-button.active {
+            background: rgba(0, 255, 128, 0.2);
+            border-color: rgba(0, 255, 128, 0.5);
+        }
+
+        .tech-info-card {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(0, 255, 128, 0.05);
+            border: 1px solid rgba(0, 255, 128, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-info-card:hover {
+            background: rgba(0, 255, 128, 0.1);
+            transform: translateX(10px);
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #ff0000;
+            border-radius: 50%;
+            margin-right: 6px;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Neo Slider Improvements */
+        .neo-slider {
+            -webkit-appearance: none;
+            height: 4px;
+            background: rgba(0, 255, 128, 0.1);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .neo-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: rgb(0, 255, 128);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 128, 0.5);
+        }
+
+        .neo-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 15px rgba(0, 255, 128, 0.7);
+        }
+    </style>
+
+    <script>
+        // Load header and footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            });
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+        // Original script content
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize particles.js
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80 },
+                    color: { value: '#00ffff' },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.5 },
+                    size: { value: 3 },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: '#00ffff',
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: 'none'
+                    }
+                }
+            });
+
+            // Interactive bitrate control
+            const bitrateSlider = document.querySelector('.neo-slider');
+            const bitrateValue = document.querySelector('.slider-value');
+            
+            bitrateSlider.addEventListener('input', (e) => {
+                const value = (e.target.value / 1000).toFixed(1);
+                bitrateValue.textContent = `${value} Mbps`;
+                updateStreamMetrics(value);
+            });
+
+            // Stream quality buttons
+            const qualityButtons = document.querySelectorAll('.quality-selector button');
+            qualityButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    qualityButtons.forEach(b => b.classList.remove('active'));
+                    button.classList.add('active');
+                    updateStreamQuality(button.textContent);
+                });
+            });
+
+            // More interactive features...
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Enhanced scroll animations
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Animate sections on scroll
+            gsap.utils.toArray('.animate-on-scroll').forEach(section => {
+                gsap.from(section, {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 80%",
+                        end: "top 20%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+
+            // Parallax effect for background elements
+            gsap.utils.toArray('.tech-grid').forEach(grid => {
+                gsap.to(grid, {
+                    y: -50,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: grid,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1
+                    }
+                });
+            });
+
+            // Existing particle.js and other animations...
+        });
+    </script>
+</body>
+</html>
