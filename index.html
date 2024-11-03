@@ -8,9 +8,8 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- GSAP for Animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/MotionPathPlugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <!-- tsParticles for Particle Effects -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/dist/tsparticles.min.js"></script>
     <!-- Font Awesome for Icons -->
@@ -166,6 +165,38 @@
         .drone.active {
             animation: glow 2s infinite;
         }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-item {
+            animation: fade-in-up 0.6s ease-out forwards;
+        }
+
+        .feature-item:nth-child(1) { animation-delay: 0.2s; }
+        .feature-item:nth-child(2) { animation-delay: 0.4s; }
+        .feature-item:nth-child(3) { animation-delay: 0.6s; }
+
+        /* Gradient animation */
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .bg-gradient-animate {
+            background-size: 200% 200%;
+            animation: gradient 15s ease infinite;
+        
+        }
     </style>
 </head>
 <body class="font-sans bg-gray-900 text-white overflow-x-hidden">
@@ -182,18 +213,6 @@
             .catch(error => console.error('Error loading header:', error));
     </script>
 
-    <!-- SVG Paths for Drone Flight -->
-    <svg width="0" height="0" class="absolute">
-        <defs>
-            <!-- Dynamic curved paths that cover more screen space -->
-            <path id="path1" d="M0,50 C300,0 700,100 1000,50 C1300,0 1700,100 2000,50" />
-            <path id="path2" d="M0,150 C200,300 400,0 600,150 C800,300 1000,0 1200,150" />
-            <path id="path3" d="M-100,300 Q200,600 500,300 T1100,300 T1700,300" />
-            <path id="path4" d="M0,400 C100,200 300,600 400,400 C500,200 700,600 800,400" />
-            <path id="path5" d="M100,500 Q400,100 700,500 T1000,500 T1300,500" />
-        </defs>
-    </svg>
-
     <!-- Hero Section -->
     <header id="home" class="relative h-screen w-full overflow-hidden">
         <video autoplay loop muted poster="https://yourdomain.com/path-to-poster.jpg" class="absolute w-full h-full object-cover scale-125">
@@ -202,32 +221,75 @@
         </video>
         <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
         <div class="absolute inset-0 flex flex-col justify-center items-center text-white text-center z-10">
-            <!-- <img src="assets/images/droneShowcase.png/++" alt="Drone Showcase" class="w-32 h-32 mb-6"> -->
             <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-wider float">Sequoia Drone Services</h1>
             <p class="text-xl md:text-2xl mb-8 max-w-2xl">Elevating perspectives with cutting-edge aerial solutions</p>
             <a href="#contact" class="bg-green-500 hover:bg-green-600 text-white py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105">Take Flight</a>
         </div>
-        
-        <!-- Drone container with multiple drones -->
-        <div class="absolute inset-0 pointer-events-none">
-            <img src="assets/images/drone_gif.gif" alt="Drone" class="drone drone-1 absolute w-16 h-16" />
-            <img src="assets/images/drone_gif.gif" alt="Drone" class="drone drone-2 absolute w-14 h-14" />
-            <img src="assets/images/drone_gif.gif" alt="Drone" class="drone drone-3 absolute w-12 h-12" />
-        </div>
     </header>
 
     <!-- About Us Section -->
-    <section id="about" class="py-24 bg-gray-800">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 mb-8 md:mb-0">
-                    <!-- Replace random image with local image -->
-                    <img src="assets/images/arialview.png" alt="About Sequoia Drone Services" class="w-full rounded-lg shadow-lg transform hover:scale-105 transition duration-500">
+    <section id="about" class="py-24 bg-gray-800 relative overflow-hidden">
+        <!-- Animated background gradient -->
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800 opacity-90"></div>
+        
+        <!-- Floating particles container -->
+        <div id="particles-about" class="absolute inset-0"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <!-- Image container with hover effects -->
+                <div class="md:w-1/2 relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-green-600 to-green-400 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
+                    <div class="relative">
+                        <img 
+                            src="assets/images/arialview.png" 
+                            alt="About Sequoia Drone Services" 
+                            class="w-full rounded-lg shadow-2xl transform transition duration-500 group-hover:scale-105"
+                        >
+                        <!-- Animated corner accents -->
+                        <div class="absolute top-0 left-0 w-20 h-20 border-t-4 border-l-4 border-green-400 rounded-tl-lg"></div>
+                        <div class="absolute bottom-0 right-0 w-20 h-20 border-b-4 border-r-4 border-green-400 rounded-br-lg"></div>
+                    </div>
                 </div>
-                <div class="md:w-1/2 md:pl-12">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4">About Us</h2>
-                    <p class="text-xl text-gray-300 mb-6">Sequoia Drone Services is committed to providing top-tier aerial solutions across various industries. With a team of certified pilots and state-of-the-art drones, we ensure precision, safety, and unparalleled quality in every project.</p>
-                    <a href="#portfolio" class="bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105">Our Work</a>
+
+                <!-- Content container with animated elements -->
+                <div class="md:w-1/2 space-y-6">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent animate-fade-in">
+                        About Us
+                    </h2>
+                    
+                    <!-- Animated feature list -->
+                    <div class="space-y-4">
+                        <div class="feature-item flex items-center space-x-4 opacity-0 transform translate-y-8">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
+                                <i class="fas fa-drone text-green-400 text-xl"></i>
+                            </div>
+                            <p class="text-lg text-gray-300">Certified drone pilots with extensive experience</p>
+                        </div>
+
+                        <div class="feature-item flex items-center space-x-4 opacity-0 transform translate-y-8">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
+                                <i class="fas fa-camera text-green-400 text-xl"></i>
+                            </div>
+                            <p class="text-lg text-gray-300">State-of-the-art equipment for superior results</p>
+                        </div>
+
+                        <div class="feature-item flex items-center space-x-4 opacity-0 transform translate-y-8">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
+                                <i class="fas fa-shield-alt text-green-400 text-xl"></i>
+                            </div>
+                            <p class="text-lg text-gray-300">Safety-first approach with comprehensive insurance</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-6">
+                        <a href="#portfolio" class="inline-flex items-center px-8 py-3 rounded-full bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold transform transition duration-300 hover:scale-105 hover:shadow-lg hover:from-green-600 hover:to-green-700">
+                            Our Work
+                            <svg class="w-5 h-5 ml-2 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -406,21 +468,20 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 bg-gray-900 text-white text-center">
-        <div class="container mx-auto px-4">
-            <div class="mb-8">
-                <img src="https://yourdomain.com/path-to-logo.png" alt="Sequoia Drone Services Logo" class="mx-auto h-24 mb-4">
-                <p class="text-xl">Soaring above Northwestern Canada and beyond</p>
-            </div>
-            <div class="flex justify-center space-x-6 mb-8">
-                <a href="https://facebook.com/yourprofile" class="text-white hover:text-green-500 transition duration-300"><i class="fab fa-facebook-f text-2xl"></i></a>
-                <a href="https://twitter.com/yourprofile" class="text-white hover:text-green-500 transition duration-300"><i class="fab fa-twitter text-2xl"></i></a>
-                <a href="https://instagram.com/yourprofile" class="text-white hover:text-green-500 transition duration-300"><i class="fab fa-instagram text-2xl"></i></a>
-                <a href="https://linkedin.com/in/yourprofile" class="text-white hover:text-green-500 transition duration-300"><i class="fab fa-linkedin-in text-2xl"></i></a>
-            </div>
-            <p class="text-sm">&copy; 2024 Sequoia Drone Services. All rights reserved.</p>
-        </div>
-    </footer>
+
+        <!-- Include footer -->
+        <div id="footer-placeholder"></div>
+
+        <!-- Add this script right after the footer placeholder -->
+        <script>
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading footer:', error));
+        </script>
+
 
     <!-- Optimized drone animation system -->
     <script>
@@ -564,16 +625,19 @@
         }
     }
 
-    // Initialize after page load
-    window.addEventListener('load', () => {
-        const loader = document.getElementById('loader');
-        const controller = new EnhancedDroneController();
+    // // Initialize after page load
+    // window.addEventListener('load', () => {
+    //     const loader = document.getElementById('loader');
+    //     const controller = new EnhancedDroneController();
         
-        setTimeout(() => {
-            loader.style.opacity = '0';
-            setTimeout(() => loader.remove(), 500);
-        }, 500);
-    });
+    //     setTimeout(() => {
+    //         loader.style.opacity = '0';
+    //         setTimeout(() => loader.remove(), 500);
+    //     }, 500);
+    // });
+
+
+    
     </script>
 
     <!-- tsParticles Initialization for Testimonials -->
@@ -733,17 +797,8 @@
         window.addEventListener('scroll', onScroll);
     </script>
 
-    <canvas id="particle-canvas"></canvas>
-    <div class="particle-controls">
-        <div class="speed-control">
-            <div class="speed-label">
-                <span>Animation Speed</span>
-                <span id="speedValue">100%</span>
-            </div>
-            <div class="speed-slider">
-                <input type="range" id="speedControl" min="1" max="200" value="100">
-            </div>
-        </div>
+    <canvas id="particle-canvas"></canvas>f
+  
     </div>
 
     <script>
@@ -997,11 +1052,105 @@
     }
 
     // Initialize both controllers
-    window.addEventListener('load', () => {
-        const droneController = new HeroDroneController();
-        const controlSystem = new DroneControlSystem(droneController);
-    });
+    // window.addEventListener('load', () => {
+    //     const droneController = new HeroDroneController();
+    //     const controlSystem = new DroneControlSystem(droneController);
+    // });
+
     </script>
 
+   
+    <script>
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize all features
+            const init = () => {
+                // Check if elements exist before using them
+                const initNavbar = () => {
+                    const navbar = document.getElementById('navbar');
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    const mobileMenuButton = document.getElementById('mobile-menu-button');
+                    
+                    if (navbar && mobileMenu && mobileMenuButton) {
+                        // Navbar initialization code
+                        mobileMenuButton.addEventListener('click', () => {
+                            mobileMenu.style.display = 
+                                mobileMenu.style.display === 'none' ? 'block' : 'none';
+                        });
+                        // Other navbar code...
+                    }
+                };
+
+                // Initialize features
+                initNavbar();
+                // Other initialization functions...
+            };
+
+            // Run initialization
+            init();
+        });
+    </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize particles for about section
+        tsParticles.load("particles-about", {
+            particles: {
+                number: {
+                    value: 20,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: "#4ade80"
+                },
+                shape: {
+                    type: "circle"
+                },
+                opacity: {
+                    value: 0.5,
+                    random: true
+                },
+                size: {
+                    value: 3,
+                    random: true
+                },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: "none",
+                    random: true,
+                    out_mode: "out"
+                }
+            },
+            interactivity: {
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: "grab"
+                    }
+                }
+            }
+        });
+
+        // Intersection Observer for feature items
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.feature-item').forEach(item => {
+            observer.observe(item);
+        });
+    });
+    </script>
 </body>
 </html>

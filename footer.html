@@ -1,58 +1,73 @@
 <!-- Footer -->
-<footer class="py-12 bg-gray-900 text-white">
-    <div class="container mx-auto px-4">
+<footer class="py-12 bg-gray-900 text-white relative overflow-hidden">
+    <!-- Animated background gradient -->
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 opacity-50"></div>
+    
+    <!-- Particle effect container -->
+    <div id="footer-particles" class="absolute inset-0"></div>
+
+    <div class="container mx-auto px-4 relative z-10">
         <!-- Footer Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
             <!-- Company Info -->
-            <div class="space-y-4">
-                <h3 class="text-xl font-bold mb-4">Sequoia Drone Services</h3>
-                <p class="text-gray-400">Soaring above Northwestern Canada and beyond</p>
+            <div class="space-y-6 transform hover:scale-105 transition duration-300">
+                <div class="flex items-center space-x-3">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6062/6062647.png" alt="Sequoia Logo" class="h-10 w-10">
+                    <h3 class="text-2xl font-bold bg-gradient-to-r from-green-400 to-green-600 bg-clip-text text-transparent">Sequoia Drone</h3>
+                </div>
+                <p class="text-gray-400 leading-relaxed">Pioneering aerial solutions across Northwestern Canada with cutting-edge drone technology and unmatched expertise.</p>
                 <div class="flex space-x-4">
-                    <a href="https://facebook.com/sequoiadrone" class="text-white hover:text-green-500 transition duration-300">
-                        <i class="fab fa-facebook-f"></i>
+                    <a href="https://facebook.com/sequoiadrone" class="social-icon-link">
+                        <i class="fab fa-facebook-f text-xl"></i>
                     </a>
-                    <a href="https://twitter.com/sequoiadrone" class="text-white hover:text-green-500 transition duration-300">
-                        <i class="fab fa-twitter"></i>
+                    <a href="https://twitter.com/sequoiadrone" class="social-icon-link">
+                        <i class="fab fa-twitter text-xl"></i>
                     </a>
-                    <a href="https://instagram.com/sequoiadrone" class="text-white hover:text-green-500 transition duration-300">
-                        <i class="fab fa-instagram"></i>
+                    <a href="https://instagram.com/sequoiadrone" class="social-icon-link">
+                        <i class="fab fa-instagram text-xl"></i>
                     </a>
-                    <a href="https://linkedin.com/company/sequoiadrone" class="text-white hover:text-green-500 transition duration-300">
-                        <i class="fab fa-linkedin-in"></i>
+                    <a href="https://linkedin.com/company/sequoiadrone" class="social-icon-link">
+                        <i class="fab fa-linkedin-in text-xl"></i>
                     </a>
                 </div>
             </div>
 
             <!-- Quick Links -->
-            <div>
-                <h3 class="text-xl font-bold mb-4">Services</h3>
-                <ul class="space-y-2">
-                    <li><a href="photo-video.html" class="text-gray-400 hover:text-green-500 transition duration-300">Photo & Video</a></li>
-                    <li><a href="asset-inspection.html" class="text-gray-400 hover:text-green-500 transition duration-300">Asset Inspection</a></li>
-                    <li><a href="thermal-imaging.html" class="text-gray-400 hover:text-green-500 transition duration-300">Thermal Imaging</a></li>
-                    <li><a href="mapping.html" class="text-gray-400 hover:text-green-500 transition duration-300">Mapping & Agriculture</a></li>
-                    <li><a href="real-estate.html" class="text-gray-400 hover:text-green-500 transition duration-300">Real Estate</a></li>
-                    <li><a href="events.html" class="text-gray-400 hover:text-green-500 transition duration-300">Events & Livestream</a></li>
+            <div class="transform hover:translate-y-[-10px] transition duration-300">
+                <h3 class="text-xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-drone mr-2 text-green-500"></i>
+                    Services
+                </h3>
+                <ul class="space-y-3">
+                    <li><a href="photo-video.html" class="footer-link">Photo & Video</a></li>
+                    <li><a href="asset-inspection.html" class="footer-link">Asset Inspection</a></li>
+                    <li><a href="thermal-imaging.html" class="footer-link">Thermal Imaging</a></li>
+                    <li><a href="mapping.html" class="footer-link">Mapping & Agriculture</a></li>
+                    <li><a href="real-estate.html" class="footer-link">Real Estate</a></li>
+                    <li><a href="events.html" class="footer-link">Events & Livestream</a></li>
                 </ul>
             </div>
 
             <!-- Contact Info -->
-            <div>
-                <h3 class="text-xl font-bold mb-4">Contact</h3>
-                <ul class="space-y-2">
-                    <li class="text-gray-400">
-                        <i class="fas fa-map-marker-alt mr-2"></i>
+            <div class="transform hover:translate-y-[-10px] transition duration-300">
+                <h3 class="text-xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-paper-plane mr-2 text-green-500"></i>
+                    Contact
+                </h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center text-gray-400 hover:text-white transition duration-300">
+                        <i class="fas fa-map-marker-alt mr-3 text-green-500"></i>
                         Northwestern Canada
                     </li>
                     <li>
-                        <a href="tel:+1234567890" class="text-gray-400 hover:text-green-500 transition duration-300">
-                            <i class="fas fa-phone mr-2"></i>
+                        <a href="tel:+1234567890" class="flex items-center text-gray-400 hover:text-white transition duration-300">
+                            <i class="fas fa-phone mr-3 text-green-500"></i>
                             (123) 456-7890
                         </a>
                     </li>
                     <li>
-                        <a href="mailto:info@sequoiadrone.com" class="text-gray-400 hover:text-green-500 transition duration-300">
-                            <i class="fas fa-envelope mr-2"></i>
+                        <a href="mailto:info@sequoiadrone.com" class="flex items-center text-gray-400 hover:text-white transition duration-300">
+                            <i class="fas fa-envelope mr-3 text-green-500"></i>
                             info@sequoiadrone.com
                         </a>
                     </li>
@@ -60,13 +75,22 @@
             </div>
 
             <!-- Newsletter -->
-            <div>
-                <h3 class="text-xl font-bold mb-4">Newsletter</h3>
-                <p class="text-gray-400 mb-4">Subscribe to our newsletter for updates and drone industry news.</p>
-                <form class="space-y-2">
-                    <input type="email" placeholder="Your email" class="w-full px-4 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-green-500">
-                    <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded transition duration-300">
-                        Subscribe
+            <div class="transform hover:translate-y-[-10px] transition duration-300">
+                <h3 class="text-xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-envelope-open-text mr-2 text-green-500"></i>
+                    Stay Updated
+                </h3>
+                <p class="text-gray-400 mb-4">Get the latest drone industry insights and updates.</p>
+                <form class="space-y-3 newsletter-form">
+                    <div class="relative">
+                        <input type="email" placeholder="Your email" class="w-full px-4 py-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/50 transition duration-300">
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                            <i class="fas fa-envelope text-gray-400"></i>
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 flex items-center justify-center">
+                        <span>Subscribe</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
                     </button>
                 </form>
             </div>
@@ -76,10 +100,10 @@
         <div class="border-t border-gray-800 pt-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-400">&copy; 2024 Sequoia Drone Services. All rights reserved.</p>
-                <div class="flex space-x-4 mt-4 md:mt-0">
-                    <a href="privacy-policy.html" class="text-gray-400 hover:text-green-500 transition duration-300">Privacy Policy</a>
-                    <a href="terms-of-service.html" class="text-gray-400 hover:text-green-500 transition duration-300">Terms of Service</a>
-                    <a href="sitemap.html" class="text-gray-400 hover:text-green-500 transition duration-300">Sitemap</a>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+                    <a href="terms-of-service.html" class="footer-link">Terms of Service</a>
+                    <a href="sitemap.html" class="footer-link">Sitemap</a>
                 </div>
             </div>
         </div>
@@ -87,66 +111,75 @@
 </footer>
 
 <style>
-    /* Footer hover effects */
+    /* Enhanced footer styles */
     .footer-link {
-        position: relative;
-        display: inline-block;
+        @apply text-gray-400 hover:text-green-500 transition-all duration-300 relative;
+        text-decoration: none;
     }
 
     .footer-link::after {
         content: '';
-        position: absolute;
-        width: 0;
-        height: 1px;
-        bottom: -2px;
-        left: 0;
-        background-color: #4ade80;
-        transition: width 0.3s ease;
+        @apply absolute bottom-[-2px] left-0 w-0 h-[2px] bg-green-500 transition-all duration-300;
     }
 
     .footer-link:hover::after {
-        width: 100%;
+        @apply w-full;
+    }
+
+    .social-icon-link {
+        @apply w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-green-500 transition-all duration-300 transform hover:scale-110;
     }
 
     /* Newsletter input animation */
-    input:focus {
-        transform: translateY(-2px);
-        transition: transform 0.3s ease;
+    .newsletter-form input:focus {
+        @apply transform -translate-y-1;
     }
 
-    /* Social icons hover animation */
-    .fab {
-        transition: transform 0.3s ease;
+    /* Particle animation */
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
     }
 
-    .fab:hover {
-        transform: translateY(-3px);
+    #footer-particles {
+        animation: float 6s ease-in-out infinite;
     }
 </style>
 
 <script>
-    // Newsletter form handling
     document.addEventListener('DOMContentLoaded', () => {
-        const newsletterForm = document.querySelector('footer form');
+        const newsletterForm = document.querySelector('.newsletter-form');
+        
         if (newsletterForm) {
-            newsletterForm.addEventListener('submit', (e) => {
+            newsletterForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const email = e.target.querySelector('input[type="email"]').value;
-                
-                // Add your newsletter subscription logic here
-                console.log('Newsletter subscription for:', email);
-                
-                // Show success message
                 const button = e.target.querySelector('button');
-                const originalText = button.textContent;
-                button.textContent = 'Subscribed!';
-                button.style.backgroundColor = '#059669'; // darker green
+                const originalContent = button.innerHTML;
                 
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.style.backgroundColor = '';
-                    e.target.reset();
-                }, 2000);
+                try {
+                    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                    // Simulate API call
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    
+                    button.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
+                    button.style.backgroundColor = '#059669';
+                    e.target.querySelector('input').value = '';
+                    
+                    setTimeout(() => {
+                        button.innerHTML = originalContent;
+                        button.style.backgroundColor = '';
+                    }, 2000);
+                    
+                } catch (error) {
+                    button.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error';
+                    button.style.backgroundColor = '#dc2626';
+                    
+                    setTimeout(() => {
+                        button.innerHTML = originalContent;
+                        button.style.backgroundColor = '';
+                    }, 2000);
+                }
             });
         }
     });
