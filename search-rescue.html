@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +11,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Header Component -->
+    <script src="header-component.js"></script>
 </head>
+
 <body class="bg-gray-900 text-white overflow-x-hidden">
-    <div id="header-placeholder"></div>
+    <header-component></header-component>
 
     <!-- Futuristic Hero Section -->
     <section class="relative min-h-screen">
@@ -24,7 +28,7 @@
             <source src="assets/videos/thermal-scan.mp4" type="video/mp4">
         </video>
         <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-gray-900"></div>
-        
+
         <div class="relative container mx-auto px-4 h-full flex items-center">
             <div class="max-w-4xl mx-auto text-center md:text-left">
                 <div class="tech-badge mb-6 inline-flex">
@@ -34,11 +38,12 @@
                 <br><br>
                 <h1 class="text-4xl md:text-7xl font-bold mb-8 cyber-glitch">
                     <span class="block transform transition-all duration-500 hover:translate-x-2">THERMAL</span>
-                    <span class="block text-red-500 transform transition-all duration-500 hover:translate-x-2">DETECTION</span>
+                    <span
+                        class="block text-red-500 transform transition-all duration-500 hover:translate-x-2">DETECTION</span>
                     <span class="block transform transition-all duration-500 hover:translate-x-2">SYSTEM</span>
                 </h1>
                 <p class="text-lg md:text-xl mb-8 max-w-2xl leading-relaxed tech-fade mx-auto md:mx-0">
-                    One of the most important applications of thermal imaging is in the field of first response. 
+                    One of the most important applications of thermal imaging is in the field of first response.
                     We are proud to collaborate with municipalities and regional/county districts in northern regions.
                 </p>
             </div>
@@ -70,7 +75,8 @@
                     </div>
                 </div>
                 <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-                    <img src="assets/images/night-vision.jpg" alt="Night Vision Camera" class="w-full h-48 object-cover">
+                    <img src="assets/images/night-vision.jpg" alt="Night Vision Camera"
+                        class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-4">Advanced Night Vision</h3>
                         <ul class="space-y-2">
@@ -124,21 +130,24 @@
                         <i class="fas fa-shield-alt text-3xl"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-4">Safety is our priority</h3>
-                    <p>Established SOPs and robust safety systems to keep everyone safe, and save both time and money.</p>
+                    <p>Established SOPs and robust safety systems to keep everyone safe, and save both time and money.
+                    </p>
                 </div>
                 <div class="advantage-card">
                     <div class="card-icon">
                         <i class="fas fa-bolt text-3xl"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-4">Rapid Response</h3>
-                    <p>Our drones can be deployed quickly, providing crucial information in time-sensitive situations.</p>
+                    <p>Our drones can be deployed quickly, providing crucial information in time-sensitive situations.
+                    </p>
                 </div>
                 <div class="advantage-card">
                     <div class="card-icon">
                         <i class="fas fa-cogs text-3xl"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-4">Advanced Technology</h3>
-                    <p>Equipped with state-of-the-art sensors and imaging systems for superior data collection and analysis.</p>
+                    <p>Equipped with state-of-the-art sensors and imaging systems for superior data collection and
+                        analysis.</p>
                 </div>
             </div>
         </div>
@@ -150,7 +159,7 @@
         <div class="container mx-auto px-4 relative z-10 text-center">
             <h2 class="text-4xl font-bold mb-8">Interested In Discussing Municipal Applications For Drone Tech?</h2>
             <p class="mb-8 max-w-2xl mx-auto">
-                Talk to one of our professionals to get the expert advice you need to take 
+                Talk to one of our professionals to get the expert advice you need to take
                 full advantage of our years of experience in the drone industry.
             </p>
             <a href="#contact" class="cyber-button">
@@ -171,13 +180,13 @@
         /* Improved animations */
         .tech-card {
             @apply bg-gray-800 rounded-lg p-6 backdrop-blur-lg bg-opacity-50;
-            border: 1px solid rgba(0,255,0,0.1);
+            border: 1px solid rgba(0, 255, 0, 0.1);
             transition: all 0.3s ease;
         }
 
         .tech-card:hover {
-            border-color: rgba(0,255,0,0.3);
-            box-shadow: 0 0 20px rgba(0,255,0,0.1);
+            border-color: rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
         }
 
         /* Enhanced mobile-friendly animations */
@@ -230,7 +239,7 @@
             .radar-grid {
                 background-size: 15px 15px;
             }
-            
+
             .tech-badge {
                 @apply text-sm;
             }
@@ -238,22 +247,20 @@
 
         /* Thermal Effect Animations */
         .thermal-overlay {
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(7, 7, 7, 0.2) 0px,
-                rgba(255, 101, 1, 0.08) 1px,
-                rgba(255, 101, 1, 0.08) 2px,
-                rgba(7, 7, 7, 0.2) 3px
-            );
+            background: repeating-linear-gradient(0deg,
+                    rgba(7, 7, 7, 0.2) 0px,
+                    rgba(255, 101, 1, 0.08) 1px,
+                    rgba(255, 101, 1, 0.08) 2px,
+                    rgba(7, 7, 7, 0.2) 3px);
             animation: thermalScan 8s linear infinite;
             opacity: 0.4;
             pointer-events: none;
         }
 
         .radar-grid {
-            background: 
-                linear-gradient(90deg, rgba(0,255,0,0.03) 1px, transparent 1px),
-                linear-gradient(0deg, rgba(0,255,0,0.03) 1px, transparent 1px);
+            background:
+                linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px);
             background-size: 20px 20px;
             opacity: 0.5;
         }
@@ -264,12 +271,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, 
-                transparent 0%,
-                rgba(0,255,0,0.2) 48%,
-                rgba(0,255,0,0.3) 50%,
-                rgba(0,255,0,0.2) 52%,
-                transparent 100%);
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(0, 255, 0, 0.2) 48%,
+                    rgba(0, 255, 0, 0.3) 50%,
+                    rgba(0, 255, 0, 0.2) 52%,
+                    transparent 100%);
             animation: radarSweep 4s linear infinite;
         }
 
@@ -277,6 +284,7 @@
             0% {
                 background-position: 0 0;
             }
+
             100% {
                 background-position: 0 100%;
             }
@@ -286,6 +294,7 @@
             0% {
                 transform: translateX(-100%);
             }
+
             100% {
                 transform: translateX(100%);
             }
@@ -296,10 +305,12 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: repeating-linear-gradient(
-                45deg,
-                rgba(255, 101, 1, 0.05) 0px,
-                rgba(255, 101, 1, 0.1
+            background: repeating-linear-gradient(45deg,
+                    rgba(255, 101, 1, 0.05) 0px,
+                    rgba(255, 101, 1, 0.1) 1px,
+                    rgba(255, 101, 1, 0.05) 2px,
+                    rgba(255, 101, 1, 0.1) 3px);
+        }
     </style>
 
     <script>
@@ -347,12 +358,6 @@
             });
 
             // Load Header and Footer
-            fetch('header.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('header-placeholder').innerHTML = data;
-                });
-
             fetch('footer.html')
                 .then(response => response.text())
                 .then(data => {
@@ -361,4 +366,5 @@
         });
     </script>
 </body>
+
 </html>

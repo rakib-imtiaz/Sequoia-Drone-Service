@@ -14,6 +14,8 @@
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/dist/tsparticles.min.js"></script>
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p8Mw1J+8L7U+3+5mW5a6x7Jk0JmGkZ1t3XcT4Qk5Z0VwFz8JwVJqZ1xk5D0Q3q7m+v1+0YJZg5QXGxK9e5L+Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Header Component -->
+    <script src="header-component.js"></script>
     <style>
         @keyframes float {
             0% { transform: translateY(0px); }
@@ -200,18 +202,8 @@
     </style>
 </head>
 <body class="font-sans bg-gray-900 text-white overflow-x-hidden">
-    <!-- Include header -->
-    <div id="header-placeholder"></div>
-
-    <!-- Add this script right after the header placeholder -->
-    <script>
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-placeholder').innerHTML = data;
-            })
-            .catch(error => console.error('Error loading header:', error));
-    </script>
+    <!-- Header Component -->
+    <header-component></header-component>
 
     <!-- Hero Section -->
     <header id="home" class="relative h-screen w-full overflow-hidden">

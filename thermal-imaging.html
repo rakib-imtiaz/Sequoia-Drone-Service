@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,10 +12,12 @@
     <!-- GSAP for Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <!-- Header Component -->
+    <script src="header-component.js"></script>
 </head>
-<body class="bg-gray-900 text-white">
-    <!-- Include header -->
-    <div id="header-placeholder"></div>
+
+<body class="bg-gray-900 text-white overflow-x-hidden">
+    <header-component></header-component>
 
     <!-- Hero Section with Thermal Overlay Effect -->
     <section class="relative h-[60vh] w-full overflow-hidden">
@@ -37,18 +40,25 @@
                 <div class="space-y-6" data-aos="fade-right">
                     <h2 class="text-2xl font-bold text-white-800">Professional Thermal Inspection</h2>
                     <p class="text-white-700">
-                        Buildings should be professionally inspected using specialized thermal cameras detect infrared radiation not visible to the human eye. An aerial thermal survey can provide precise and detailed analysis of problems areas on structures in a non-invasive manner.
+                        Buildings should be professionally inspected using specialized thermal cameras detect infrared
+                        radiation not visible to the human eye. An aerial thermal survey can provide precise and
+                        detailed analysis of problems areas on structures in a non-invasive manner.
                     </p>
                     <p class="text-white-700">
-                        In northern Canada where minimizing heat loss can translate into considerable savings, especially on large commercial/industrial properties and structures. Performing an energy audit by thermal imaging drones is a cost-effective strategy for maintaining your asset.
+                        In northern Canada where minimizing heat loss can translate into considerable savings,
+                        especially on large commercial/industrial properties and structures. Performing an energy audit
+                        by thermal imaging drones is a cost-effective strategy for maintaining your asset.
                     </p>
                 </div>
                 <div class="relative group" data-aos="fade-left">
                     <div class="thermal-image-container">
-                        <img src="assets/images/thermal_normal.jpg" alt="Normal View" class="rounded-lg shadow-lg w-full transition-opacity duration-500">
-                        <img src="assets/images/thermal_infrared.jpg" alt="Thermal View" class="absolute top-0 left-0 w-full h-full rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <img src="assets/images/thermal_normal.jpg" alt="Normal View"
+                            class="rounded-lg shadow-lg w-full transition-opacity duration-500">
+                        <img src="assets/images/thermal_infrared.jpg" alt="Thermal View"
+                            class="absolute top-0 left-0 w-full h-full rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     </div>
-                    <div class="absolute bottom-4 right-4 bg-black bg-opacity-75 text-white px-4 py-2 rounded-full text-sm">
+                    <div
+                        class="absolute bottom-4 right-4 bg-black bg-opacity-75 text-white px-4 py-2 rounded-full text-sm">
                         Hover to see thermal view
                     </div>
                 </div>
@@ -76,7 +86,8 @@
             <!-- Thermal Applications -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
                 <div class="thermal-showcase" data-aos="fade-right">
-                    <img src="assets/images/thermal_building.jpg" alt="Thermal Building Scan" class="rounded-lg shadow-lg w-full">
+                    <img src="assets/images/thermal_building.jpg" alt="Thermal Building Scan"
+                        class="rounded-lg shadow-lg w-full">
                 </div>
                 <div class="space-y-6" data-aos="fade-left">
                     <h2 class="text-2xl font-bold">Valuable Benefits</h2>
@@ -95,7 +106,8 @@
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            <span>Identification overheating electrical components, HVAC, and other external equipment</span>
+                            <span>Identification overheating electrical components, HVAC, and other external
+                                equipment</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
@@ -109,41 +121,54 @@
 
     <!-- Add custom styles for animations -->
     <style>
-    .thermal-overlay {
-        background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff);
-        opacity: 0.3;
-        animation: thermalScan 10s infinite;
-    }
+        .thermal-overlay {
+            background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff);
+            opacity: 0.3;
+            animation: thermalScan 10s infinite;
+        }
 
-    .thermal-scan {
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-        animation: scan 3s linear infinite;
-    }
+        .thermal-scan {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: scan 3s linear infinite;
+        }
 
-    .benefit-card {
-        @apply bg-white p-6 rounded-lg shadow-lg text-center transform transition-transform duration-300 hover:scale-105;
-    }
+        .benefit-card {
+            @apply bg-white p-6 rounded-lg shadow-lg text-center transform transition-transform duration-300 hover:scale-105;
+        }
 
-    .thermal-image-container {
-        position: relative;
-        overflow: hidden;
-    }
+        .thermal-image-container {
+            position: relative;
+            overflow: hidden;
+        }
 
-    @keyframes thermalScan {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
+        @keyframes thermalScan {
+            0% {
+                background-position: 0% 50%;
+            }
 
-    @keyframes scan {
-        0% { left: -100%; }
-        100% { left: 100%; }
-    }
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes scan {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
     </style>
 
     <!-- Include footer -->
@@ -151,14 +176,6 @@
 
     <!-- Header and Footer Loading Scripts -->
     <script>
-        // Load Header
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-placeholder').innerHTML = data;
-            })
-            .catch(error => console.error('Error loading header:', error));
-
         // Load Footer
         fetch('footer.html')
             .then(response => response.text())
@@ -174,4 +191,5 @@
         AOS.init();
     </script>
 </body>
+
 </html>
